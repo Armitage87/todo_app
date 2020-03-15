@@ -3,14 +3,24 @@
     <h1 class="subheading grey--text">Dashboard</h1>
     <v-container class="my-5">
       <v-row class="mb-3" no-gutters wrap>
-        <v-btn small outlined color="grey" @click="sortBy('title')">
-          <v-icon left small>folder</v-icon>
-          <span class="caption text-lowercase">By Project Name</span>
-        </v-btn>
-        <v-btn small outlined color="grey" @click="sortBy('person')">
-          <v-icon left small>person</v-icon>
-          <span class="caption text-lowercase">By Person</span>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn small outlined color="grey" @click="sortBy('title')" v-on="on">
+              <v-icon left small>folder</v-icon>
+              <span class="caption text-lowercase">By Project Name</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by Project name</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn small outlined color="grey" @click="sortBy('person')" v-on="on">
+              <v-icon left small>person</v-icon>
+              <span class="caption text-lowercase">By Person</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by owner</span>
+        </v-tooltip>
       </v-row>
 
         <v-card outlined v-for="project in projects" :key="project.title">
