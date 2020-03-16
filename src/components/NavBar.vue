@@ -38,6 +38,9 @@
             </v-avatar>
             <p class="white--text subheading mt-1">Harv</p>
         </v-flex>
+        <v-flex class="mt-4 mb-3">
+            <popup />
+        </v-flex>
     </v-col>
     </v-row>
         <v-list>
@@ -57,7 +60,12 @@
 </template>
 
 <script>
+import Popup from './Popup.vue'
+
 export default {
+    components: {
+        Popup
+    },
     data() {
         return {
             drawer: false,
