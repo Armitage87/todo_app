@@ -7,6 +7,23 @@
             <span>DO</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
+    <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+            <v-btn
+            color="grey"
+            outlined
+            v-on="on">
+            <v-icon left>expand_more</v-icon>
+            <span>Menu</span>
+            </v-btn>
+        </template>
+        <v-list>
+        <v-list-item v-for="link in links" :key="link.text" @click="on" router :to="link.route">
+          <v-list-item-title>{{ link.text }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
         <v-btn text color="grey">
             <span>Sign Out</span>
             <v-icon right>exit_to_app</v-icon>
