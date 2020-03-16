@@ -2,6 +2,27 @@
   <div class="dashboard">
     <h1 class="subheading grey--text">Dashboard</h1>
     <v-container class="my-5">
+      <v-row class="mb-3" no-gutters wrap>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn small outlined color="grey" @click="sortBy('title')" v-on="on">
+              <v-icon left small>folder</v-icon>
+              <span class="caption text-lowercase">By Project Name</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by Project name</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-btn small outlined color="grey" @click="sortBy('person')" v-on="on">
+              <v-icon left small>person</v-icon>
+              <span class="caption text-lowercase">By Person</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by owner</span>
+        </v-tooltip>
+      </v-row>
+
         <v-card outlined v-for="project in projects" :key="project.title">
           <v-row wrap no-gutters :class="`pa-3 project ${project.status}`">
             <v-flex xs12 md6>
@@ -17,8 +38,9 @@
               <div>{{ project.due }}</div>
             </v-flex>
             <v-flex xs2 sm4 md2>
-              <div class="caption grey--text">Status</div>
-              <div>{{ project.status }}</div>
+              <div class="right">
+                <v-chip small :color="`${project.status}`" class="white--text caption my-2">{{ project.status }}</v-chip>
+              </div>
             </v-flex>
           </v-row>
           <v-divider></v-divider>
@@ -42,6 +64,11 @@ export default {
         { title: 'Create a community forum', person: 'Gouken', due: '20th Oct 2018', status: 'overdue', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
       ]
     }
+  }, 
+  methods: {
+    sortBy(prop) {
+      this.projects.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
+    }
   }
 }
 </script>
@@ -59,4 +86,14 @@ export default {
 .project.overdue {
   border-left: 4px solid tomato;
 }
+
+.v-chip.ongoing {
+    background: #ffaa2c !important;
+  }
+.v-chip.complete {
+    background: #3cd1c2 !important;
+  }
+.v-chip.overdue {
+    background: #f83e70 !important;
+  }
 </style>
