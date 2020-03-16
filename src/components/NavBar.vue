@@ -3,8 +3,8 @@
     <v-app-bar app>
         <v-app-bar-nav-icon class="grey--text" @click="drawer=!drawer"></v-app-bar-nav-icon>
         <v-toolbar-title class="text-uppercase grey--text">
-            <span class="font-weight-light">Todo</span>
-            <span>Ninja</span>
+            <span class="font-weight-light">ITO</span>
+            <span>DO</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn text color="grey">
@@ -19,7 +19,7 @@
             <v-avatar size="100">
                 <img src="/avatar-1.png" alt="">
             </v-avatar>
-            <p class="white--text subheading mt-1">The Net ninja</p>
+            <p class="white--text subheading mt-1">Harv</p>
         </v-flex>
     </v-col>
     </v-row>
