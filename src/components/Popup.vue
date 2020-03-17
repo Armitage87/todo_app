@@ -22,24 +22,28 @@
           Create new project
         </v-card-title>
         <v-card-text>
-            <v-form class="px-3">
-                <v-text-field label="Title" v-model="title" prepend-icon="folder"></v-text-field>
-                <v-textarea label="Information" v-model="information" prepend-icon="edit"></v-textarea>
-                <v-menu>
+            <v-form class="px-3" ref="form">
+                <v-text-field label="Title" v-model="title" prepend-icon="folder" :rules="inputRules"></v-text-field>
+                <v-textarea label="Information" v-model="information" prepend-icon="edit" :rules="inputRules"></v-textarea>
+                <v-menu v-model="menu2"
+                  :close-on-content-click="false"
+                  max-width="290">
                     <template v-slot:activator="{ on }">
-                        <v-text-field
-                        v-model="computedDateFormatted"
-                        :value="due"
-                        label="Date (read only text field)"
-                        hint="MM/DD/YYYY format"
-                        persistent-hint
-                        prepend-icon="event"
+                      <v-text-field
+                        :value="date"
+                        clearable
+                        label="Due date"
                         readonly
+                        prepend-icon="date_range"
                         v-on="on"
-                        ></v-text-field>
+                        @click:clear="date = null"
+                      ></v-text-field>
                     </template>
-                    <v-date-picker v-model="due" no-title @input="menu2 = false"></v-date-picker>
-                </v-menu>
+                    <v-date-picker
+                      v-model="date"
+                      @change="menu2 = false"
+                    ></v-date-picker>
+                  </v-menu>
             </v-form>
         </v-card-text>
         <v-card-actions>
@@ -48,6 +52,7 @@
             text
             @click=submit
             class="success"
+            :loading="loading"
           >
             Add Project
           </v-btn>
@@ -58,16 +63,41 @@
 </template>
 
 <script>
+import db from '@/fb'
+
 export default {
     data() {
         return {
             title: '',
             information: '',
+            date: null,
+            inputRules: [
+              v => v.length >= 3 || 'Minimum length is 3 characters'
+            ],
+            loading: false,
+            dialog: false,
+            menu2: false
         }
     },
     methods: {
         submit() {
-            console.log(this.title, this.information)
+            if(this.$refs.form) {
+              this.loading = true;
+              const project = {
+                title: this.title,
+                content: this.information,
+                due: this.date,
+                person: 'Harv',
+                status: 'ongoing'
+
+              }
+              db.collection('projects').add(project).then(() => {
+                this.loading = false;
+                this.dialog = false;
+                this.$emit('projectAdded')
+              })
+            }
+            
         }
     }
 }

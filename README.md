@@ -1,4 +1,4 @@
-# todo-ninja
+# ITODO
 
 ## Project setup
 ```
