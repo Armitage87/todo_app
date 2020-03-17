@@ -51,8 +51,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
+import db from '@/fb'
 
 export default {
   data() {
@@ -70,6 +69,20 @@ export default {
     sortBy(prop) {
       this.projects.sort((a, b) => a[prop] < b[prop] ? -1 : 1)
     }
+  },
+  created() {
+    db.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges();
+
+      changes.forEach(change => {
+        if(change.type === 'added') {
+          this.project.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          })
+        }
+      })
+    })
   }
 }
 </script>
