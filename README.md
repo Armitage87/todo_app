@@ -23,3 +23,7 @@ npm run lint
 ### About
 
 > A small project creating responsive PWA using Material design through Vuetify
+
+### Demo
+
+> Demo is available at: https://itodo-fc761.web.app/
